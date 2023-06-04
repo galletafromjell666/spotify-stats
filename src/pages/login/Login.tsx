@@ -9,6 +9,7 @@ const Login = () => {
   const [token, setToken] = useState<string>("");
   useEffect(() => {
     const { access_token, expires_in } = getHash();
+    console.log(getHash());
     access_token &&
       setToken(() => {
         Cookies.set("access_token", access_token, {
@@ -21,7 +22,7 @@ const Login = () => {
   return (
     <>
       <a
-        href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token`}
+        href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=user-top-read&response_type=token`}
       >
         Login to Spotify
       </a>
