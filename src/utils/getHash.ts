@@ -12,7 +12,7 @@ export const getHash = (): hashParams => {
       token_type: "",
     };
 
-  const hash = window.location.hash.substr(1);
+  const hash = window.location.hash.slice(1);
 
   return hash.split("&").reduce((result: { [key: string]: string }, item) => {
     if (item) {

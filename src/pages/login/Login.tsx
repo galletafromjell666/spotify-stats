@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 import { getHash } from "../../utils/getHash";
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI;
@@ -7,9 +8,14 @@ const AUTH_ENDPOINT = import.meta.env.VITE_AUTH_ENDPOINT;
 const Login = () => {
   const [token, setToken] = useState<string>("");
   useEffect(() => {
-    getHash() && setToken(getHash().access_token);
-    console.log(getHash());
-    console.log(token);
+    const { access_token, expires_in } = getHash();
+    access_token &&
+      setToken(() => {
+        Cookies.set("access_token", access_token, {
+          expires: Number(expires_in),
+        });
+        return access_token;
+      });
   }, [token]);
 
   return (
